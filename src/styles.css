@@ -418,6 +418,49 @@ select:disabled {
   line-height: 1.55;
 }
 
+.examples {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 34px;
+}
+
+.examples h2 {
+  margin-bottom: 12px;
+}
+
+.example-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.example {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  min-width: 168px;
+  padding: 10px 14px;
+  text-align: left;
+}
+
+.example strong {
+  font-size: 0.84rem;
+  font-weight: 650;
+}
+
+.example span {
+  color: var(--muted);
+  font-size: 0.74rem;
+}
+
+.empty-state .examples-note {
+  margin: 12px 0 0;
+  font-size: 0.74rem;
+}
+
 .drop-overlay {
   z-index: 5;
   border: 2px dashed var(--accent);

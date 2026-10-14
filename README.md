@@ -28,6 +28,9 @@ Try it at <https://mdondrup.github.io/SloppyyGFA/>.
   centres highly connected hubs in their tangles
 - Lazy sequence reads from the original browser `File`
 - Responsive, accessible dark-mode interface with file picker and drag-and-drop
+- One-click examples on the start screen (the Plant, Sea, and Stool metagenome graphs in
+  `tests/data/`), downloaded from the GitHub repository with progress and then processed
+  locally like any opened file
 
 ## Development
 
@@ -56,6 +59,11 @@ Every push to `main` deploys it to GitHub Pages through
 publishes `dist/`. The repository's Pages source must be set to "GitHub Actions"
 (Settings → Pages).
 
+The start-screen examples are not bundled into the site. They are fetched from
+`https://raw.githubusercontent.com/mdondrup/SloppyyGFA/main/tests/data/`, which allows
+cross-origin requests, so they work from the Pages site and from a local dev server as long as
+the files exist on `main`. The list lives in `src/examples.ts`.
+
 ## Architecture
 
 The parsing and rendering paths have no direct dependency on one another:
@@ -70,7 +78,8 @@ The parsing and rendering paths have no direct dependency on one another:
 - `src/model/` defines the typed-array transfer format.
 - `src/storage/` resolves indexed sequence ranges only when requested.
 - `src/render/` uploads graph geometry to WebGL and owns viewport interaction.
-- `src/main.ts` is the UI integration layer.
+- `src/main.ts` is the UI integration layer; `src/examples.ts` lists and downloads the
+  example graphs.
 
 The parser scans `Blob` chunks as bytes rather than splitting the entire file into strings.
 Only segment IDs and graph structure remain in memory. Segment sequences are represented by

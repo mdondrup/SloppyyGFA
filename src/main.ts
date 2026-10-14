@@ -1,4 +1,5 @@
 import "./styles.css";
+import { downloadExample, EXAMPLES, type Example } from "./examples";
 import {
   CURVE_STIFFNESS,
   DEFAULT_OPEN_END_REPULSION,
@@ -60,6 +61,18 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
           <input id="empty-file-input" type="file" accept=".gfa,.gfa1,text/plain" />
           <span>Choose a GFA file</span>
         </label>
+        <section class="examples" aria-labelledby="examples-heading">
+          <h2 id="examples-heading">Or try an example</h2>
+          <div id="example-list" class="example-list">
+            ${EXAMPLES.map(
+              (example) => `<button type="button" class="example" data-example="${example.id}">
+                <strong>${example.label}</strong>
+                <span>${example.segments.toLocaleString()} segments · ${formatBytes(example.bytes)}</span>
+              </button>`,
+            ).join("")}
+          </div>
+          <p class="examples-note">Examples are downloaded from the project's GitHub repository.</p>
+        </section>
       </div>
       <div id="drop-overlay" class="drop-overlay">Drop GFA to open</div>
     </section>
@@ -168,6 +181,7 @@ const elements = {
   status: required<HTMLElement>("status"),
   workspace: required<HTMLElement>("workspace"),
   emptyState: required<HTMLElement>("empty-state"),
+  exampleList: required<HTMLElement>("example-list"),
   dropOverlay: required<HTMLElement>("drop-overlay"),
   stats: required<HTMLElement>("stats"),
   selectionEmpty: required<HTMLElement>("selection-empty"),
@@ -216,6 +230,7 @@ let curveStiffness = CURVE_STIFFNESS[0]!.value;
 let forceStart: ForceStart = FORCE_STARTS[0]!.id;
 let openEndRepulsion = DEFAULT_OPEN_END_REPULSION;
 let fileLabel = "";
+let exampleDownload: AbortController | null = null;
 
 renderer.onSelect = (index) => {
   if (index < 0) clearSelection();
@@ -277,6 +292,12 @@ for (const input of [elements.fileInput, elements.emptyFileInput]) {
   });
 }
 
+elements.exampleList.addEventListener("click", (event) => {
+  const button = (event.target as Element).closest<HTMLButtonElement>("button[data-example]");
+  const example = EXAMPLES.find(({ id }) => id === button?.dataset.example);
+  if (example) void openExample(example);
+});
+
 elements.searchForm.addEventListener("submit", (event) => {
   event.preventDefault();
   if (!graph) return;
@@ -319,7 +340,33 @@ window.addEventListener("drop", (event) => {
   if (file) void openFile(file);
 });
 
+async function openExample(example: Example): Promise<void> {
+  exampleDownload?.abort();
+  const download = new AbortController();
+  exampleDownload = download;
+  elements.emptyState.hidden = true;
+  elements.status.textContent = `Downloading ${example.file}…`;
+  try {
+    const file = await downloadExample(example, download.signal, (loaded) => {
+      const percent = Math.min(100, Math.round((loaded / example.bytes) * 100));
+      elements.status.textContent = `Downloading ${example.file} · ${percent}% of ${formatBytes(example.bytes)}`;
+    });
+    if (exampleDownload !== download) return;
+    exampleDownload = null;
+    await openFile(file);
+  } catch (error) {
+    if (download.signal.aborted) return;
+    exampleDownload = null;
+    elements.status.textContent = `Could not download ${example.file}: ${
+      error instanceof Error ? error.message : String(error)
+    }`;
+    elements.emptyState.hidden = false;
+  }
+}
+
 async function openFile(file: File): Promise<void> {
+  exampleDownload?.abort();
+  exampleDownload = null;
   parserWorker?.terminate();
   layoutWorker?.terminate();
   layoutWorker = null;
