@@ -175,7 +175,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
           Its force layouts adapt code from
           <a href="https://github.com/asl/BandageNG" target="_blank" rel="noopener">BandageNG</a> and
           <a href="https://github.com/ogdf/ogdf" target="_blank" rel="noopener">OGDF</a>, and parts of the
-          code were written with GitHub Copilot, powered by OpenAI GPT and Zhipu GLM models.
+          code were written with GitHub Copilot, powered by OpenAI GPT, Claude Opus & Faible, and Zhipu GLM models.
         </p>
         <p>
           <a href="https://github.com/mdondrup/SloppyyGFA#license-and-acknowledgements" target="_blank" rel="noopener">Full acknowledgements</a>
