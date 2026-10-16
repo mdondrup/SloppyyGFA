@@ -1,3 +1,10 @@
+/*
+ * Layout drivers including the FMMM finest-level loop and post-processing, translated from
+ * OGDF's C++ implementation as configured by BandageNG. See the "License and
+ * acknowledgements" section of the README. Upstream: OGDF (GPL-2.0-or-later, FMMM
+ * © Stefan Hachul) and BandageNG (GPL-3.0-or-later, © 2017 Ryan Wick,
+ * © 2022 Anton Korobeynikov).
+ */
 import type { GraphLayout } from "../model/graph";
 import { fitSegmentCurves } from "./curves";
 import { attraction, dampingFactor, FORCE_SCALING, mulberry32, THETA } from "./fmmm";

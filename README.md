@@ -323,6 +323,34 @@ hierarchical, spiral) get the least-squares curve through their points.
 6. **Performance gates:** benchmark parsing throughput, peak heap, sequence latency, and
    frame time with representative large assemblies in Chrome, Safari, and Firefox.
 
+## License and acknowledgements
+
+SloppyyGFA is free software: you can redistribute it and/or modify it under the terms of the
+GNU General Public License as published by the Free Software Foundation, either version 3 of
+the License, or (at your option) any later version. See [LICENSE](LICENSE) for the full
+license text. Copyright © 2026 Michael Dondrup.
+
+This project is a derivative work of the following GPL-licensed projects, whose code was
+studied and partially translated from C++ to TypeScript during development:
+
+- **[BandageNG](https://github.com/asl/BandageNG)** (GPL-3.0-or-later, © 2017 Ryan Wick,
+  © 2022 Anton Korobeynikov). Bandage's rendering defaults (segment length, edge length,
+  node width, depth scaling, component separation, depth tag priority) and its FMMM
+  configuration were adapted here.
+- **[OGDF](https://github.com/ogdf/ogdf)** (GPL-2.0-or-later, FMMM implementation
+  © Stefan Hachul). The FMMM force model (attraction, repulsion, force scaling, oscillation
+  damping) and the multilevel coarsening (solar merger) and post-processing phases in
+  `src/layout/` are TypeScript translations of the corresponding OGDF sources.
+
+The remaining components — the GFA parser, graph storage, WebGL renderer, UI, the
+Bézier-constrained solver, hub centring, open-end repulsion, tree-seeded multilevel start,
+and the radial, hierarchical, and spiral layouts — were written for this project. As a whole
+this software is distributed under the GPLv3.
+
+Parts of this code were written with the assistance of large language models through
+GitHub Copilot (agent mode in VS Code), powered by OpenAI GPT and Zhipu GLM family models.
+The affected commits carry a `Co-authored-by: Copilot` trailer.
+
 ## Browser support
 
 The initial renderer targets WebGL 2 because it is available in current Chrome, Safari,

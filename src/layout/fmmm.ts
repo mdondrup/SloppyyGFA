@@ -1,6 +1,9 @@
 /*
  * Force-model primitives of OGDF's FMMM (fast multipole multilevel method) as configured by
  * BandageNG, shared by the Bézier-constrained finest level and the multilevel coarse levels.
+ * Translated from C++ to TypeScript; see the "License and acknowledgements" section of the
+ * README. Upstream: OGDF (GPL-2.0-or-later, FMMM © Stefan Hachul) and BandageNG
+ * (GPL-3.0-or-later, © 2017 Ryan Wick, © 2022 Anton Korobeynikov).
  */
 
 /** OGDF FMMM `forceScalingFactor`: displacement per unit of scaled force. */
