@@ -167,6 +167,20 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
         <h2>Local by design</h2>
         <p>Graph data is processed entirely in your browser. Sequence bases are read lazily from the selected file.</p>
       </section>
+      <section class="about-note">
+        <h2>About</h2>
+        <p>
+          SloppyyGFA is free software licensed under the
+          <a href="https://github.com/mdondrup/SloppyyGFA/blob/main/LICENSE" target="_blank" rel="noopener">GNU GPL v3</a>.
+          Its force layouts adapt code from
+          <a href="https://github.com/asl/BandageNG" target="_blank" rel="noopener">BandageNG</a> and
+          <a href="https://github.com/ogdf/ogdf" target="_blank" rel="noopener">OGDF</a>, and parts of the
+          code were written with GitHub Copilot, powered by OpenAI GPT and Zhipu GLM models.
+        </p>
+        <p>
+          <a href="https://github.com/mdondrup/SloppyyGFA#license-and-acknowledgements" target="_blank" rel="noopener">Full acknowledgements</a>
+        </p>
+      </section>
     </aside>
   </main>
 `;

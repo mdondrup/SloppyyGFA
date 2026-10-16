@@ -270,6 +270,27 @@ pre {
   border-bottom: 0 !important;
 }
 
+.about-note {
+  border-bottom: 0 !important;
+}
+
+.about-note p {
+  margin: 0 0 10px;
+}
+
+.about-note p:last-child {
+  margin-bottom: 0;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
 .field {
   display: grid;
   gap: 7px;
@@ -503,7 +524,8 @@ select:disabled {
     border-left: 0;
   }
 
-  .privacy-note {
+  .privacy-note,
+  .about-note {
     display: none;
   }
 }
